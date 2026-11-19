@@ -1,4 +1,4 @@
-# PMPP5e Labs
+# ECE408 Labs
 
 This repository contains code solutions to the machine problems of UIUC [ECE408 - Applied Parallel Programming](https://lumetta.web.engr.illinois.edu/408-Sum26/index.html) (Summer 2026).
 
