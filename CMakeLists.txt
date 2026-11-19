@@ -13,4 +13,5 @@ if(CMAKE_EXPORT_COMPILE_COMMANDS AND CMAKE_BUILD_TYPE STREQUAL "Debug")
                      "${CMAKE_SOURCE_DIR}/compile_commands.json" SYMBOLIC)
 endif()
 
+add_subdirectory(common)
 add_subdirectory(thirdparty)
