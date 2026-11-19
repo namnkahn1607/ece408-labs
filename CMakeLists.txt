@@ -12,3 +12,5 @@ if(CMAKE_EXPORT_COMPILE_COMMANDS AND CMAKE_BUILD_TYPE STREQUAL "Debug")
     file(CREATE_LINK "${CMAKE_BINARY_DIR}/compile_commands.json"
                      "${CMAKE_SOURCE_DIR}/compile_commands.json" SYMBOLIC)
 endif()
+
+add_subdirectory(thirdparty)
