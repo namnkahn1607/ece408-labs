@@ -1,6 +1,9 @@
 .cache/
 build/
+data/
+imgs/
 
 .clangd
 .neocmakelint.toml
 compile_commands.json
+template.cu
