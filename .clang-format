@@ -3,15 +3,17 @@ Language: Cpp
 BasedOnStyle: LLVM
 ColumnLimit: 100
 
+AccessModifierOffset: -4
 AlignAfterOpenBracket: Align
 AlignConsecutiveAssignments:
-  Enabled: true
+    Enabled: true
 AlignConsecutiveDeclarations:
-  Enabled: true
+    Enabled: true
 AllowShortCaseLabelsOnASingleLine: true
 AllowShortIfStatementsOnASingleLine: WithoutElse
 BreakConstructorInitializers: BeforeComma
 InsertNewlineAtEOF: true
+IndentWidth: 4
 PointerAlignment: Left
 SortIncludes: CaseSensitive
-TabWidth: 2
+TabWidth: 4

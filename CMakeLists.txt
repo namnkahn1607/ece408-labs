@@ -14,8 +14,8 @@ string(APPEND CMAKE_CUDA_FLAGS " -lineinfo")
 
 # Always from the Debug tree.
 if(CMAKE_EXPORT_COMPILE_COMMANDS AND CMAKE_BUILD_TYPE STREQUAL "Debug")
-  file(CREATE_LINK "${CMAKE_BINARY_DIR}/compile_commands.json"
-                   "${CMAKE_SOURCE_DIR}/compile_commands.json" SYMBOLIC)
+    file(CREATE_LINK "${CMAKE_BINARY_DIR}/compile_commands.json"
+                     "${CMAKE_SOURCE_DIR}/compile_commands.json" SYMBOLIC)
 endif()
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")

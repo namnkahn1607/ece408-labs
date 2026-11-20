@@ -1,6 +1,6 @@
 set(WB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/libwb")
 if(NOT EXISTS "${WB_DIR}/wb.h")
-  message(FATAL_ERROR "libwb missing. Run: git submodule update --init --recursive")
+    message(FATAL_ERROR "libwb missing. Run: git submodule update --init --recursive")
 endif()
 
 find_package(CUDAToolkit REQUIRED)
