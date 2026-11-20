@@ -1,4 +1,4 @@
 [submodule "thirdparty/libwb"]
 	path = thirdparty/libwb
-	url = https://github.com/abduld/libwb.git
+	url = https://github.com/namnkahn1607/libwb.git
 	shallow = true
