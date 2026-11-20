@@ -9,6 +9,8 @@ set(CMAKE_CUDA_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CUDA_STANDARD_REQUIRED ON)
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+
 # Enable ncu/compute-sanitizer mapping SASS back to source lines.
 string(APPEND CMAKE_CUDA_FLAGS " -lineinfo")
 
