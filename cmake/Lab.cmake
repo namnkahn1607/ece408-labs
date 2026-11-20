@@ -1,0 +1,45 @@
+# cmake/Lab.cmake
+
+# add_lab() — call from code/MP<id>/CMakeLists.txt with no arguments. From the files present:
+#   kernel.cu     -> <id>_kernel    static lib (the solution)
+#   reference.cpp -> <id>_reference static lib (CPU double reference, deliberately separate)
+#   test.cu       -> <id>_test      (also registered with ctest)
+#   bench.cu      -> <id>_bench
+#   main.cu       -> <id>_main      (course host code; the ONLY consumer of libwb)
+function(add_lab)
+  cmake_path(GET CMAKE_CURRENT_SOURCE_DIR FILENAME lab)
+
+  if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/kernel.cu")
+    add_library(${lab}_kernel STATIC kernel.cu)
+    target_link_libraries(${lab}_kernel PUBLIC ece408_common)
+    target_include_directories(${lab}_kernel PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
+  endif()
+
+  if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/reference.cpp")
+    add_library(${lab}_reference STATIC reference.cpp)
+    target_link_libraries(${lab}_reference PUBLIC ece408_common)
+    target_include_directories(${lab}_reference PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
+  endif()
+
+  foreach(role IN ITEMS test bench main)
+    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${role}.cu")
+      add_executable(${lab}_${role} "${role}.cu")
+      if(TARGET ${lab}_kernel)
+        target_link_libraries(${lab}_${role} PRIVATE ${lab}_kernel)
+      else()
+        target_link_libraries(${lab}_${role} PRIVATE ece408_common)
+        target_include_directories(${lab}_${role} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}")
+      endif()
+    endif()
+  endforeach()
+
+  if(TARGET ${lab}_test)
+    if(TARGET ${lab}_reference)
+      target_link_libraries(${lab}_test PRIVATE ${lab}_reference)
+    endif()
+    add_test(NAME ${lab}_test COMMAND ${lab}_test)
+  endif()
+  if(TARGET ${lab}_main)
+    target_link_libraries(${lab}_main PRIVATE wb)
+  endif()
+endfunction()

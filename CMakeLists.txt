@@ -18,6 +18,10 @@ if(CMAKE_EXPORT_COMPILE_COMMANDS AND CMAKE_BUILD_TYPE STREQUAL "Debug")
                    "${CMAKE_SOURCE_DIR}/compile_commands.json" SYMBOLIC)
 endif()
 
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+include(Lab)
+
 enable_testing()
 add_subdirectory(common)
 add_subdirectory(thirdparty)
+add_subdirectory(code)

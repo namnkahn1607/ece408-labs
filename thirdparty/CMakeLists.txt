@@ -5,7 +5,7 @@ endif()
 
 find_package(CUDAToolkit REQUIRED)
 
-file(GLOB WB_SOURCES CONFIGURE_DEPENDS "${WB_DIR}/*.cpp")
+file(GLOB WB_SOURCES CONFIGURE_DEPENDS "${WB_DIR}/*.cpp" "${WB_DIR}/vendor/*.cpp")
 list(FILTER WB_SOURCES EXCLUDE REGEX "(_test|wbMPI)\\.cpp$")   # unit tests, MPI support
 
 add_library(wb STATIC ${WB_SOURCES})
