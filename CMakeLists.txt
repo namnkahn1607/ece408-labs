@@ -6,6 +6,8 @@ project(ece408_labs LANGUAGES CXX CUDA)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CUDA_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CUDA_STANDARD_REQUIRED ON)
 
 # Enable ncu/compute-sanitizer mapping SASS back to source lines.
 string(APPEND CMAKE_CUDA_FLAGS " -lineinfo")
