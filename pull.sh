@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Fetch template.cu and dataset resources (data/, imgs/) for an ECE408 lab,
-# print rai_build.yml / run_datasets to stdout, and open its README in the browser.
+# and open its README in the browser.
 #
 # Usage: bash pull.sh <MP0..MP8>
 set -euo pipefail
@@ -95,16 +95,7 @@ for subdir in data imgs; do
     fi
 done
 
-# 5. Pipe rai_build.yml and run_datasets to stdout
-for info_file in rai_build.yml run_datasets; do
-    if [[ -f "${SRC_DIR}/${info_file}" ]]; then
-        printf '\n==================== %s/%s ====================\n' "$LAB" "$info_file"
-        cat "${SRC_DIR}/${info_file}"
-        printf '\n'
-    fi
-done
-
-# 6. Provide and open the Readme URL
+# 5. Provide and open the Readme URL
 BRANCH="$(git -C "$CACHE_DIR" symbolic-ref --short HEAD 2>/dev/null || echo master)"
 README_NAME="Readme.md"
 for candidate in Readme.md README.md readme.md; do
