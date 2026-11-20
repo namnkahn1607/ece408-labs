@@ -1,0 +1,19 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/clang-format-18.x.json
+Language: Cpp
+BasedOnStyle: LLVM
+ColumnLimit: 100
+
+AccessModifierOffset: -4
+AlignAfterOpenBracket: Align
+AlignConsecutiveAssignments:
+    Enabled: true
+AlignConsecutiveDeclarations:
+    Enabled: true
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortIfStatementsOnASingleLine: WithoutElse
+BreakConstructorInitializers: BeforeComma
+IndentWidth: 4
+InsertNewlineAtEOF: true
+PointerAlignment: Left
+SortIncludes: CaseSensitive
+TabWidth: 4
