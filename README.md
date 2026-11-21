@@ -27,6 +27,6 @@ MP<N>/
     - Keeps `__constant__` symbols and `cudaMemcpyToSymbol` in the same translation unit (avoiding the need for `CUDA_SEPARABLE_COMPILATION` / `-rdc=true`).
     - Encapsulates multi-pass launches behind a single host function declared in `kernel.cuh`.
     - Performs an **asynchronous** launch (no `cudaDeviceSynchronize()` inside the wrapper) so `test.cu` can call `CUDA_CHECK_LAUNCH()` right after launch while `bench.cu` can time back-to-back launches and call `CUDA_CHECK_LAUNCH()` outside the timed window.
-- **`main.cu`, `tesst.cu`, and `bench.cu` own memory, synchronization, and I/O**:
+- **`main.cu`, `test.cu`, and `bench.cu` own memory, synchronization, and I/O**:
     - `main.cu` handles `libwb` dataset import/export (`wbImport`, `wbSolution`) and links `wb`.
     - `test.cu` and `bench.cu` use `DeviceBuffer<T>` and remain completely decoupled from `libwb`.
