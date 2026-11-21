@@ -5,6 +5,13 @@
 #include <random>
 #include <type_traits>
 
+template <class T>
+inline constexpr bool is_supported_uniform_int_v =
+    std::is_same_v<T, short> || std::is_same_v<T, int> || std::is_same_v<T, long> ||
+    std::is_same_v<T, long long> || std::is_same_v<T, unsigned short> ||
+    std::is_same_v<T, unsigned int> || std::is_same_v<T, unsigned long> ||
+    std::is_same_v<T, unsigned long long>;
+
 // Retrieves seeding from env DBG_SEED if set (to replay a failure), else from
 // std::random_device. Always printed, so any failing run can be reproduced.
 inline std::uint64_t Seed() {
@@ -22,6 +29,12 @@ inline std::uint64_t Seed() {
     return seed;
 }
 
+// Returns a PRNG seeded with the process-wide seed from `Seed()`.
+//
+// WARNING: `Seed()` caches single seed per process, so calling `Rng()` multiple times creates
+// independent engines with EXACT SAME seed, producing identical sequences.
+//
+// Correct usage: instantiate once and pass by ref to `FillUniform()`.
 inline std::mt19937_64 Rng() { return std::mt19937_64(Seed()); }
 
 template <class T> void FillUniform(std::vector<T>& v, T lo, T hi, std::mt19937_64& rng) {
@@ -31,6 +44,9 @@ template <class T> void FillUniform(std::vector<T>& v, T lo, T hi, std::mt19937_
             x = d(rng);
         }
     } else {
+        static_assert(is_supported_uniform_int_v<T>,
+                      "std::uniform_int_distribution<T> is undefined towards char, signed char, "
+                      "unsigned char and bool");
         std::uniform_int_distribution<T> d(lo, hi);
         for (auto& x : v) {
             x = d(rng);
