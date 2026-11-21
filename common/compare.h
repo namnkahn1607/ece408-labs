@@ -20,12 +20,12 @@ template <class T>
 CompareResult CompareClose(const T* got, const double* ref, std::size_t n, double rtol,
                            double atol) {
     CompareResult r;
-    double        worst_excess = -INFINITY;
+    double        worst_excess = -std::numeric_limits<double>::infinity();
     for (std::size_t i = 0; i < n; ++i) {
         const double e   = std::fabs(static_cast<double>(got[i]) - ref[i]);
         const double tol = atol + rtol * std::fabs(ref[i]);
         if (!(e <= tol)) ++r.n_fail;
-        const double excess = std::isnan(e) ? INFINITY : e - tol;
+        const double excess = std::isnan(e) ? std::numeric_limits<double>::infinity() : e - tol;
         if (excess > worst_excess) {
             worst_excess = excess;
             r.worst_idx  = i;
