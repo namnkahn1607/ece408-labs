@@ -11,6 +11,7 @@ AlignConsecutiveDeclarations:
     Enabled: true
 AllowShortCaseLabelsOnASingleLine: true
 AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowShortLoopsOnASingleLine: true
 BreakConstructorInitializers: BeforeComma
 InsertNewlineAtEOF: true
 IndentWidth: 4
