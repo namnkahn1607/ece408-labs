@@ -19,7 +19,7 @@ public:
         if (n_) CUDA_CHECK(cudaMalloc(&p_, n_ * sizeof(T)));
     }
     explicit DeviceBuffer(const std::vector<T>& host)
-        : DeviceBuffer(host.size()) {
+        : DeviceBuffer{host.size()} {
         Upload(host);
     }
     ~DeviceBuffer() { cudaFree(p_); } // no CUDA_CHECK: a dtor shouldn't exit()
@@ -27,8 +27,8 @@ public:
     DeviceBuffer(const DeviceBuffer&)            = delete;
     DeviceBuffer& operator=(const DeviceBuffer&) = delete;
     DeviceBuffer(DeviceBuffer&& o) noexcept
-        : p_(std::exchange(o.p_, nullptr))
-        , n_(std::exchange(o.n_, 0)) {}
+        : p_{std::exchange(o.p_, nullptr)}
+        , n_{std::exchange(o.n_, 0)} {}
     DeviceBuffer& operator=(DeviceBuffer&& o) noexcept {
         if (this != &o) {
             cudaFree(p_);
@@ -38,7 +38,8 @@ public:
         return *this;
     }
 
-    T*          get() const { return p_; }
+    T*          get() { return p_; }
+    const T*    get() const { return p_; }
     std::size_t size() const { return n_; }
 
     void Upload(const std::vector<T>& host) {
@@ -56,6 +57,7 @@ public:
         return host;
     }
 
+    // Fill with a byte pattern. 0xFF is a good poison value for "kernel did not write here".
     void FillBytes(int byte) {
         if (n_) CUDA_CHECK(cudaMemset(p_, byte, n_ * sizeof(T)));
     }
