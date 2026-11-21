@@ -42,9 +42,12 @@ inline void PrintBenchHeader() {
 // Times `launch()` (a callable that enqueues work on the default stream, no sync inside).
 // Per-iteration cudaEvent pair; the flush (if any) sits outside the event pair.
 template <class F> BenchStats Bench(F&& launch, BenchOptions opt = {}) {
-    for (int i = 0; i < opt.warmup; ++i) {
-        launch();
+    if (opt.warmup < 0 || opt.iters <= 0) {
+        std::fprintf(stderr, "[bench] invalid options: require warmup >= 0 and iters > 0\n");
+        std::exit(EXIT_FAILURE);
     }
+
+    for (int i = 0; i < opt.warmup; ++i) launch();
     CUDA_CHECK_LAUNCH();
 
     DeviceBuffer<char> flush_buf;
